@@ -14,10 +14,10 @@ author:  # change following line to your infomation.
   name: Daniel Hilla  # Be used at blog posts' author.
   first_name: Daniel  # Be used at index page about me section.
   last_name: Hilla  # Be used at index page about me section.
-  avatar: /static/assets/img/landing/avatar.jpg  # upload your avatar at directory and edit it.
+  avatar: /static/assets/img/landing/githubprofile.jpg  # upload your avatar at directory and edit it.
   github_username: sunnydan  # Leave blank if you don't have now
   linkedin_id: danielhilla # Leave blank if you don't have now
-  facebook_username:  # Leave blank if you don't have now
+  facebook_username: sunnydanman  # Leave blank if you don't have now
   twitter_username: sunnydanman  # Leave blank if you don't have now
   email: danielhilla@gmail.com  # Leave blank if you don't have now
   cv: https://docs.google.com/document/d/1R3XVlWrpBXG760N9hXjPtsZsrtpDG5X8gpEP2CCB6rY/edit?usp=sharing  # An online CV can be printed as PDF, leave blank if you don't have now
