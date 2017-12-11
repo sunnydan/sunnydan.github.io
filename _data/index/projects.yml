@@ -8,15 +8,9 @@
   img: /static/assets/img/landing/roam.png
   desc: A top-down rogue-like web game made with javascript and the HTML5 canvas. 
 
-- name: Python
-  i18n: cpython
-  gh_user: python
-  repo: cpython
-  img: /static/assets/img/landing/python.png
-  desc: This project is other's project. I use another request to get repo's information.
-
-- name: Google
-  i18n: google
-  url: https://google.com
-  img: /static/assets/img/landing/google.png
-  desc: This is another project.
+- name: Our Storybook
+  i18n: StoryBook
+  gh_user: StoryBook
+  repo: StoryBook
+  img: /static/assets/img/landing/book.png
+  desc: Webapp built for NVCC english as a second language students. Makes learning english fun!
