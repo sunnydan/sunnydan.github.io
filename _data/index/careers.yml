@@ -28,7 +28,7 @@
     i18n: company_b_job
   icon: fa-laptop
 
-  - name:
+- name:
     detail: Preston's Care Pharmacy
     i18n: company_b
   desc:
