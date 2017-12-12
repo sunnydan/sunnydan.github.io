@@ -23,10 +23,12 @@ author:  # change following line to your infomation.
   cv: https://docs.google.com/document/d/1R3XVlWrpBXG760N9hXjPtsZsrtpDG5X8gpEP2CCB6rY/edit?usp=sharing  # An online CV can be printed as PDF, leave blank if you don't have now
   # skill icons are on avatar's left and right side. Reference urls are http://fontawesome.io/ and http://fizzed.com/oss/font-mfizz
   skill_icon1:
-    - name: icon-html5-alt
     - name: icon-git
+    - name: icon-python
+    - name: icon-html5-alt
   skill_icon2:
     - name: icon-css3-alt
+    - name: icon-javascript-alt
     - name: icon-java-bold
   desc: Passionate software developer with skills in web and game development arenas. Both design and people-oriented, driven to craft user experiences that will impress both professional and casual clients. Adept at creating interfaces that the average consumer will be able to use intuitively to engage with a narrative.  # Describe yourself.
 
