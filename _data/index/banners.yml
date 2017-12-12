@@ -2,16 +2,7 @@
 # Add items for each banner image in the carousel
 #
 # Images are expected to be located in `static/assets/img/`.
-- src: landing/header_one.jpg
-  title: some code from RegularBlocks API
-
-- src: landing/header_two.jpg
-  title: The only picture I ever drew that I liked.
-
 - src: landing/header_three.jpg
-  title: second banner image
-
-- src: landing/header_four.jpg
   title: second banner image
 
 - src: landing/header_five.jpg
