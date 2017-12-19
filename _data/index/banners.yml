@@ -2,8 +2,17 @@
 # Add items for each banner image in the carousel
 #
 # Images are expected to be located in `static/assets/img/`.
+- src: landing/header_one.jpg
+  title: Washington DC, my favorite city in the world
+
+- src: landing/header_two.jpg
+  title: Skyrim is a fun and beautiful game
+
 - src: landing/header_three.jpg
   title: Photo from my trip to Segovia, Spain
+
+- src: landing/header_four.jpg
+  title: I love scuba diving in the caribbean
 
 - src: landing/header_five.jpg
   title: Picture from a bike ride in Newport News, VA
