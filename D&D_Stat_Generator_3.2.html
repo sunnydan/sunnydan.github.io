@@ -1,0 +1,163 @@
+<html>
+<head>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@2.3.2/dist/email.min.js"></script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init("user_ZibLvBEmTNKxAOqhEOGVa");
+   })();
+</script>
+<script>
+function addUp(total, num) {
+  return total + num;
+}
+
+function sumUp(array) {
+  return array.reduce(addUp, 0)
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function generatescores() {
+  document.getElementById("done").hidden = true;
+  document.getElementById("generatebutton").hidden = true;
+  document.getElementById("emailsent").textContent = "Email Sent";
+  document.getElementById("emailsent").hidden = true;
+  var total = document.getElementById("total").value;
+  console.log(total);
+  var stats = [
+  parseInt(document.getElementById("score1").value),
+  parseInt(document.getElementById("score2").value),
+  parseInt(document.getElementById("score3").value),
+  parseInt(document.getElementById("score4").value),
+  parseInt(document.getElementById("score5").value),
+  parseInt(document.getElementById("score6").value),
+  ];
+  var maxscore = document.getElementById("maxscore").value;
+  document.getElementById("stats").innerHTML = stats.toString().replace(/,/g,"&nbsp;&nbsp;");
+  await sleep(1000);
+  while(true) {
+    console.log(sumUp(stats));
+	if(sumUp(stats) >= total)
+	  break;
+    var index = Math.floor(Math.random() * 6);
+	if(stats[index] >= maxscore)
+	  continue;
+	await sleep(125);
+    stats[index] = stats[index] + 1;
+    console.log(stats);
+    document.getElementById("stats").innerHTML = stats.toString().replace(/,/g,"&nbsp;&nbsp;");
+  }
+  await sleep(1000);
+  document.getElementById("generatebutton").hidden = false;
+  document.getElementById("done").hidden = false;
+  await sleep(1000);
+  
+  if(document.getElementById("emailcheckbox").checked == true) {
+	sendemails(stats, maxscore, total);
+  }
+}
+
+function sendemails(stats, maxscore, total) {
+	var templateParams = {
+		uemail: document.getElementById("uemail").value,
+		gmemail: document.getElementById("gmemail").value,
+		score1: stats[0],
+		score2: stats[1],
+		score3: stats[2],
+		score4: stats[3],
+		score5: stats[4],
+		score6: stats[5],
+		minscore1: document.getElementById("score1").value,
+		minscore2: document.getElementById("score2").value,
+		minscore3: document.getElementById("score3").value,
+		minscore4: document.getElementById("score4").value,
+		minscore5: document.getElementById("score5").value,
+		minscore6: document.getElementById("score6").value,	
+		maxscore: maxscore,
+		total: total,
+		programtitle: document.getElementById("programtitle").textContent,
+	};
+	emailjs.send('dndstatgenerator@gmail.com', 'stattemplate', templateParams).then(function(response) {
+        console.log('SUCCESS!', response.status, response.text);
+	    document.getElementById("emailsent").hidden = false;
+    }, function(error) {
+		document.getElementById("emailsent").textContent = "Email Failed To Send";
+		document.getElementById("emailsent").hidden = false;
+		console.log('FAILED...', error);
+    });
+}
+
+function checkcheckbox() {
+	var checkBox = document.getElementById("emailcheckbox");
+	if (checkBox.checked == true){
+		document.getElementById("uemail").hidden = false;
+		document.getElementById("gmemail").hidden = false;
+	} else {
+		document.getElementById("uemail").hidden = true;
+		document.getElementById("gmemail").hidden = true;
+	}
+}
+</script>
+<style>
+body {
+  background: #161616;
+  color: #bdbdbd;
+  font-weight: 300;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: Helvetica neue, roboto;
+}
+
+h1 {
+  font-weight: 300;
+}
+</style>
+</head>
+<body>
+<div>
+  <h1 id="programtitle">D&D/Pathfinder Ability Score Generator 3.2</h1>
+  <label for="score1">Minimum Ability Scores:&nbsp;&nbsp;</label>
+  <input style="width: 40px;" type="number" id="score1" value="3" min="3" max="10">
+  <input style="width: 40px;" type="number" id="score2" value="3" min="3" max="10">
+  <input style="width: 40px;" type="number" id="score3" value="3" min="3" max="10">
+  <input style="width: 40px;" type="number" id="score4" value="3" min="3" max="10">
+  <input style="width: 40px;" type="number" id="score5" value="3" min="3" max="10">
+  <input style="width: 40px;" type="number" id="score6" value="3" min="3" max="10">
+  <br>
+  <label for="score1">Maximum Ability Score:&nbsp;&nbsp;</label>
+  <input style="width: 40px;" type="number" id="maxscore" value="18">
+  <br>
+  <label for="total">Ability Score Total:&nbsp;&nbsp;</label>
+  <input type="number" id="total" value="73">
+  <br>
+  <label for="emailcheckbox">Email stats?&nbsp;&nbsp;</label>
+  <input type="checkbox" id="emailcheckbox" name="emailcheckbox" onclick="checkcheckbox()">
+  <br>
+  <input type="email" id="uemail" name="uemail" placeholder="your email" hidden="true">
+  <input type="email" id="gmemail" name="gmemail" placeholder="your GM's email" hidden="true">
+  <br>
+  <br>
+  <button id="generatebutton" onclick="generatescores()">Generate Ability Scores</button>
+  <h1 id="stats"></h1>
+  <h1 id="done" hidden="true">Done</h1>
+  <h3 id="emailsent" hidden="true">Email Sent</h3>
+  <br>
+  <small>
+  <p>This generator is based around the classic stat rolling method of "4d6 drop the lowest", also known as "4d6k3".</p>
+  <p>3 is the lowest that can be rolled with 4d6k3.</p>
+  <p>10 is the ability score of an average human in D&D and Pathfinder.</p>
+  <p>18 is the highest that can be rolled with 4d6k3.</p>
+  <p>73 is the statistical average (rounded to a whole number) of the total of 6 stats, each rolled with 4d6k3.</p>
+  <hr>
+  <p>Personally, I let my players set their minimum ability scores to whatever they want, so they can increase their odds of getting stats that are weighted how they like.</p>
+  <p>Also, I let my players play around with the generator as much as they want, but what gets sent to my email are their final stats.</p>
+  </small>
+</div>
+</body>
+</html>
