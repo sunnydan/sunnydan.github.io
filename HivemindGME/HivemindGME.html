@@ -1,0 +1,88 @@
+<html>
+
+<head>
+  <title>Hivemind GM Emulator</title>
+  <link rel="stylesheet" type="text/css" href="hivemind.css">
+  <script src='https://cdn.scaledrone.com/scaledrone.min.js'></script>
+  <script src="hivemind.js"></script>
+</head>
+
+<body>
+  <header class="centerInParent">
+    <div class="actuallyBlock centerText">
+      <h1 class="noMarginNoPadding" id="programtitle">The Hivemind GM Emulator [WIP] [Alpha 0.1]</h1>
+      <div id="preJoinControls">
+        <span id="notConnected">Not currently connected to any room.</span>
+        <span id="usernameIsRequired" style="color:red" hidden="true">Username is required.</span>
+        <br>
+        <input id="roomNameField" placeholder="Enter room name"></input>
+        <input id="userNameField" placeholder="Username is required"></input>
+        <button onclick="joinRoom()">Join Room</button>
+      </div>
+      <div id="postJoinControls" hidden="true">
+        <span>Connected to Room:&nbsp;&nbsp;</span>
+        <span id="roomNameOutput"></span>&nbsp;&nbsp;
+        <button onclick="leaveRoom()">Leave</button>
+        <br>
+        <span>Users connected:&nbsp;&nbsp;</span>
+        <span id="usersConnectedOutput"></span>
+      </div>
+    </div>
+  </header>
+  <content>
+    <div class="column fillbox" id="logColumn">
+      <div>
+        <h2>Log</h2>
+        <hr>
+      </div>
+      <div class="fillRemaining bottomOfParent leftInParent">
+        <div class="fillBox fillParent">
+          <div class="fillRemaining" id="questionsAndAnswers"></div>
+          <div id="logdiv">
+            <input id="questionField" placeholder="Ask your question" disabled="true"></input>
+            <button id="questionEnterButton" onclick="sendQuestion()" disabled="true">Enter</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="column fillBox" id="controlsColumn">
+      <div>
+        <h2>Controls</h2>
+        <hr>
+      </div>
+      <div class="fillRemaining centerInParent">
+        <div id="controlsAndQuestionDiv">
+          <div id="questionDiv">
+            <span>Current Question:</span>
+            <hr><span id="currentQuestion">---none---</span>
+          </div>
+          <hr>
+          <br><br>
+          <div id="controlsDiv">
+            <div class="horizontalFillBox" id="openEndedControls">
+              <input class="fillRemaining" id="answerField" placeholder="Custom Answer" disabled="true"></input>
+              &nbsp;&nbsp;
+              <button id="answerEnterButton" onclick="sendAnswer()" disabled="true">Enter</button>
+            </div>
+            <br>
+            <div id="yesNoControls">
+              <button disabled="true">Yes</button>
+              <button disabled="true">No</button>
+              <button disabled="true">Coin Flip</button>
+              <button disabled="true">Something Completely Different</button>
+            </div>
+            <br>
+            <div id="otherControls">
+              <button disabled="true">Abstain</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </content>
+  <footer>
+    <a href="/index.html">Return to Homepage</a>
+  </footer>
+</body>
+
+</html>
