@@ -10,7 +10,7 @@
 <body>
   <header class="centerInParent">
     <div class="actuallyBlock centerText">
-      <h1 class="noMarginNoPadding" id="programtitle">The Hivemind GM Emulator [WIP] [Alpha 0.1]</h1>
+      <h1 class="noMarginNoPadding" id="programtitle">The Hivemind GM Emulator [WIP] [Beta 0.4]</h1>
       <div id="preJoinControls">
         <span id="notConnected">Not currently connected to any room.</span>
         <span id="usernameIsRequired" style="color:red" hidden="true">Username is required.</span>
@@ -52,28 +52,65 @@
       </div>
       <div class="fillRemaining centerInParent">
         <div id="controlsAndQuestionDiv">
+          <div id="countdownDiv" hidden="true">
+            <span>Seconds left to answer:</span>
+            <span id="secondsLeft"></span>
+            <br><br>
+          </div>
           <div id="questionDiv">
             <span>Current Question:</span>
-            <hr><span id="currentQuestion">---none---</span>
+            <hr>
+            <span id="currentQuestion">---none---</span>
+            <hr>
           </div>
-          <hr>
-          <br><br>
-          <div id="controlsDiv">
+
+
+          <div id="answerRecieved" hidden="true">
+            <br>
+            <span style="color: green;">Answer Recieved</span>
+            <br>
+          </div>
+          <div id="controlsDiv" hidden="true">
+            <br>
             <div class="horizontalFillBox" id="openEndedControls">
               <input class="fillRemaining" id="answerField" placeholder="Custom Answer" disabled="true"></input>
               &nbsp;&nbsp;
               <button id="answerEnterButton" onclick="sendAnswer()" disabled="true">Enter</button>
+              <br>
             </div>
-            <br>
-            <div id="yesNoControls">
-              <button disabled="true">Yes</button>
-              <button disabled="true">No</button>
-              <button disabled="true">Coin Flip</button>
-              <button disabled="true">Something Completely Different</button>
+            <div id="yesNoControls" hidden="true">
+              <br>
+              <button onclick="onExtraButton('Yes')">Yes</button>
+              <button onclick="onExtraButton('No')">No</button>
+              <button onclick="onExtraButton('Coin Flip')">Coin Flip</button>
+              <br>
             </div>
-            <br>
+            <div id="numericControls" hidden="true">
+              <br>
+              <div style="display: flex; justify-content: space-around;">
+                <button onclick="onExtraButton('Zeronone')">Zero/None</button>
+                <button onclick="onExtraButton('One')">One</button>
+                <button onclick="onExtraButton('Percentile Dice')">Percentile Dice</button>
+              </div>
+              <br>
+              <span>Between
+                <input style="width: 50px;" type="number" id="minField" placeholder="min" value="1">
+                and
+                <input style="width: 50px;" type="number" id="maxField" placeholder="max" value="10">.
+                <button onclick="onExtraButton('Between')">Enter</button>
+              </span>
+              <br><br>
+              <span>Roll
+                <input style="width: 30px;" type="number" id="numberDiceField" min="1" placeholder="#" value="1">
+                d
+                <input style="width: 30px;" type="number" id="diceTypeField" min="2" placeholder="#" value="6">.
+                <button onclick="onExtraButton('Roll')">Enter</button>
+              </span>
+              <br>
+            </div>
             <div id="otherControls">
-              <button disabled="true">Abstain</button>
+              <br>
+              <button id="abstainButton" onclick="onExtraButton('Abstain')" disabled="true">Abstain</button>
             </div>
           </div>
         </div>
