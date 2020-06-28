@@ -6,6 +6,7 @@ var username;
 var membersArray = [];
 var mode = "notConnected";
 var answers = [];
+var abstains = 0;
 var countdownStarted = false;
 
 function joinRoom() {
@@ -110,62 +111,64 @@ function sendCountdown(secondsLeft) {
 }
 
 function onCountdown(data) {
-  countdownStarted = true;
-  document.getElementById("countdownDiv").hidden = false;
-  document.getElementById("secondsLeft").textContent = data.messageText;
-  if (data.messageText >= 20)
-    document.getElementById("secondsLeft").style.color = "green";
-  if (data.messageText == 10)
-    document.getElementById("secondsLeft").style.color = "yellow";
-  if (data.messageText <= 5)
-    document.getElementById("secondsLeft").style.color = "red";
-  if (iAmTheServer()) {
-    switch (data.messageText) {
-      case 30:
-        setTimeout(() => {
-          sendCountdown(20);
-        }, 10000);
-        break;
-      case 20:
-        setTimeout(() => {
-          sendCountdown(10);
-        }, 10000);
-        break;
-      case 10:
-        setTimeout(() => {
-          sendCountdown(5);
-        }, 5000);
-        break;
-      case 5:
-        setTimeout(() => {
-          sendCountdown(4);
-        }, 1000);
-        break;
-      case 4:
-        setTimeout(() => {
-          sendCountdown(3);
-        }, 1000);
-        break;
-      case 3:
-        setTimeout(() => {
-          sendCountdown(2);
-        }, 1000);
-        break;
-      case 2:
-        setTimeout(() => {
-          sendCountdown(1);
-        }, 1000);
-        break;
-      case 1:
-        setTimeout(() => {
-          sendCountdown(0);
-        }, 1000);
-        break;
-      case 0:
-        determineFinalAnswer();
-        break;
-      default:
-        alert("something broke! Recieved countdown message with nonstandard count!");
+  if (mode != "question") {
+    countdownStarted = true;
+    document.getElementById("countdownDiv").hidden = false;
+    document.getElementById("secondsLeft").textContent = data.messageText;
+    if (data.messageText >= 20)
+      document.getElementById("secondsLeft").style.color = "green";
+    if (data.messageText == 10)
+      document.getElementById("secondsLeft").style.color = "yellow";
+    if (data.messageText <= 5)
+      document.getElementById("secondsLeft").style.color = "red";
+    if (iAmTheServer()) {
+      switch (data.messageText) {
+        case 30:
+          setTimeout(() => {
+            sendCountdown(20);
+          }, 10000);
+          break;
+        case 20:
+          setTimeout(() => {
+            sendCountdown(10);
+          }, 10000);
+          break;
+        case 10:
+          setTimeout(() => {
+            sendCountdown(5);
+          }, 5000);
+          break;
+        case 5:
+          setTimeout(() => {
+            sendCountdown(4);
+          }, 1000);
+          break;
+        case 4:
+          setTimeout(() => {
+            sendCountdown(3);
+          }, 1000);
+          break;
+        case 3:
+          setTimeout(() => {
+            sendCountdown(2);
+          }, 1000);
+          break;
+        case 2:
+          setTimeout(() => {
+            sendCountdown(1);
+          }, 1000);
+          break;
+        case 1:
+          setTimeout(() => {
+            sendCountdown(0);
+          }, 1000);
+          break;
+        case 0:
+          determineFinalAnswer();
+          break;
+        default:
+          alert("something broke! Recieved countdown message with nonstandard count!");
+      }
     }
   }
 }
@@ -253,8 +256,10 @@ function onAnswer(data) {
           sendCountdown(30);
         }
       }
+    } else {
+      abstains += 1;
     }
-    if (membersArray.length <= 1) {
+    if (membersArray.length <= 1 || (answers.length + abstains) == membersArray.length) {
       determineFinalAnswer();
       return;
     }
@@ -325,6 +330,7 @@ function sendAnswer() {
     room: room.name,
     message: message
   });
+  document.getElementById("answerOutput").textContent = document.getElementById("answerField").value;
   document.getElementById("answerField").value = "";
   mode = "noQuestion";
   onNewMode();
@@ -347,11 +353,14 @@ function onNewMode() {
     disableAnswerControls();
     countdownStarted = false;
     document.getElementById("logColumn").style.border = "1px green solid";
+    document.getElementById("countdownDiv").hidden = true;
     document.getElementById("answerRecieved").hidden = true;
+    document.getElementById("answerOutput").textContent = "";
     document.getElementById("questionField").disabled = false;
     document.getElementById("questionEnterButton").disabled = false;
     document.getElementById("questionField").focus();
     answers = [];
+    abstains = 0;
   } else if (mode == "answer") {
     disableQuestionControls();
     document.getElementById("controlsColumn").style.border = "1px green solid";
@@ -378,7 +387,6 @@ function disableAnswerControls() {
   document.getElementById("abstainButton").disabled = true;
   document.getElementById("yesNoControls").hidden = true;
   document.getElementById("numericControls").hidden = true;
-  document.getElementById("countdownDiv").hidden = true;
   document.getElementById("answerField").placeholder = "Custom Answer";
 }
 
@@ -455,3 +463,11 @@ document.addEventListener('keyup', (e) => {
     }
   }
 });
+
+function infobox() {
+  alert(
+    "Questions beginning with \"How many\", \"How much\", or \"How few\", will allow the question to be answered using the numeric controls.\n\n" +
+    "If you wish to ask a numeric question with a unit attached, phrase your question like \"How many miles is it?\" rather than \"How far is it?\"\n\n" +
+    "Asking a yes or no question will allow the question to be answered using the yes or no controls."
+  );
+}

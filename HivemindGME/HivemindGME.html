@@ -10,7 +10,7 @@
 <body>
   <header class="centerInParent">
     <div class="actuallyBlock centerText">
-      <h1 class="noMarginNoPadding" id="programtitle">The Hivemind GM Emulator [WIP] [Beta 0.4]</h1>
+      <h1 class="noMarginNoPadding" id="programtitle">The Hivemind GM Emulator [WIP] [Beta 0.5]</h1>
       <div id="preJoinControls">
         <span id="notConnected">Not currently connected to any room.</span>
         <span id="usernameIsRequired" style="color:red" hidden="true">Username is required.</span>
@@ -63,11 +63,11 @@
             <span id="currentQuestion">---none---</span>
             <hr>
           </div>
-
-
           <div id="answerRecieved" hidden="true">
             <br>
-            <span style="color: green;">Answer Recieved</span>
+            <span style="color: green;">Answer Recieved:</span>
+            <br>
+            <span id="answerOutput"></span>
             <br>
           </div>
           <div id="controlsDiv" hidden="true">
@@ -118,6 +118,7 @@
     </div>
   </content>
   <footer>
+    <a onclick="infobox()"><u>Info</u></a>
     <a href="../index.html">Return to Homepage</a>
   </footer>
 </body>
