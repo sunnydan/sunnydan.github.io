@@ -362,6 +362,7 @@ function onNewMode() {
     answers = [];
     abstains = 0;
   } else if (mode == "answer") {
+    ding();
     disableQuestionControls();
     document.getElementById("controlsColumn").style.border = "1px green solid";
     document.getElementById("controlsDiv").hidden = false;
@@ -470,4 +471,10 @@ function infobox() {
     "If you wish to ask a numeric question with a unit attached, phrase your question like \"How many miles is it?\" rather than \"How far is it?\"\n\n" +
     "Asking a yes or no question will allow the question to be answered using the yes or no controls."
   );
+}
+
+function ding() {
+  var mp3Source = '<source src="ding.mp3" type="audio/mpeg">';
+  var embedSource = '<embed hidden="true" autostart="true" loop="false" src="ding.mp3">';
+  document.getElementById("sound").innerHTML = '<audio autoplay="autoplay">' + mp3Source + embedSource + '</audio>';
 }
