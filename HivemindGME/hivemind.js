@@ -241,7 +241,7 @@ function isNumericQuestion(questionText) {
 
 function onAnswer(data) {
   if (iAmTheServer()) {
-    if (data.messageText != "abstain.") {
+    if (data.messageText != "abstain") {
       answers.push(data.messageText);
       console.log(data.messageText);
       console.log(answers.length);
