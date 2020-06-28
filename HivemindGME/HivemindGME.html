@@ -10,7 +10,7 @@
 <body>
   <header class="centerInParent">
     <div class="actuallyBlock centerText">
-      <h1 class="noMarginNoPadding" id="programtitle">The Hivemind GM Emulator [WIP] [Beta 0.5]</h1>
+      <h1 class="noMarginNoPadding" id="programtitle">The Hivemind GM Emulator v1.0</h1>
       <div id="preJoinControls">
         <span id="notConnected">Not currently connected to any room.</span>
         <span id="usernameIsRequired" style="color:red" hidden="true">Username is required.</span>
@@ -38,6 +38,7 @@
       <div class="fillRemaining bottomOfParent leftInParent">
         <div class="fillBox fillParent">
           <div class="fillRemaining" id="questionsAndAnswers"></div>
+          <span id="8characterMin" style="color: red;" hidden="true">Must be at least 8 characters.</span>
           <div id="logdiv">
             <input id="questionField" placeholder="Ask your question" disabled="true"></input>
             <button id="questionEnterButton" onclick="sendQuestion()" disabled="true">Enter</button>
@@ -90,7 +91,7 @@
               <div style="display: flex; justify-content: space-around;">
                 <button onclick="onExtraButton('Zeronone')">Zero/None</button>
                 <button onclick="onExtraButton('One')">One</button>
-                <button onclick="onExtraButton('Percentile Dice')">Percentile Dice</button>
+                <button onclick="onExtraButton('Percentile Dice')" title="2d10 where one d10 determines the 10's place">Percentile Dice</button>
               </div>
               <br>
               <span>Between

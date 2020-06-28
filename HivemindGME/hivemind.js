@@ -243,10 +243,6 @@ function onAnswer(data) {
   if (iAmTheServer()) {
     if (data.messageText != "abstain") {
       answers.push(data.messageText);
-      console.log(data.messageText);
-      console.log(answers.length);
-      console.log(membersArray.length);
-      console.log(countdownStarted);
       if (answers.length > 0 && membersArray.length > 1 && !countdownStarted) {
         if (isYesOrNoQuestion(document.getElementById("currentQuestion").textContent)) {
           sendCountdown(10);
@@ -307,21 +303,27 @@ function onFinalAnswer(data) {
 
 function sendQuestion() {
   questionText = document.getElementById("questionField").value;
-  if (questionText.charAt(questionText.length - 1) != '?') {
-    questionText = questionText.concat("?");
+  if (questionText.length >= 8) {
+    if (questionText.charAt(questionText.length - 1) != '?') {
+      questionText = questionText.concat("?");
+    }
+    var message = {
+      type: "question",
+      messageText: questionText
+    };
+    drone.publish({
+      room: room.name,
+      message: message
+    });
+    document.getElementById("questionField").value = "";
+  } else {
+    document.getElementById("8characterMin").hidden = false;
   }
-  var message = {
-    type: "question",
-    messageText: questionText
-  };
-  drone.publish({
-    room: room.name,
-    message: message
-  });
-  document.getElementById("questionField").value = "";
 }
 
 function sendAnswer() {
+  if (document.getElementById("answerField").value == "")
+    document.getElementById("answerField").value = "abstain";
   var message = {
     type: "answer",
     messageText: document.getElementById("answerField").value
@@ -364,6 +366,7 @@ function onNewMode() {
   } else if (mode == "answer") {
     ding();
     disableQuestionControls();
+    document.getElementById("8characterMin").hidden = true;
     document.getElementById("controlsColumn").style.border = "1px green solid";
     document.getElementById("controlsDiv").hidden = false;
     document.getElementById("answerField").disabled = false;
