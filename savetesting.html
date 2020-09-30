@@ -38,6 +38,36 @@
       $("#sometext").text(timestamp);
     }
 
+    function sendemails() {
+      var templateParams = {
+        uemail: "danielhilla@gmail.com",
+        gmemail: "danielhilla@gmail.com",
+        score1: 1,
+        score2: 2,
+        score3: 3,
+        score4: 4,
+        score5: 5,
+        score6: 6,
+        minscore1: 1,
+        minscore2: 2,
+        minscore3: 3,
+        minscore4: 4,
+        minscore5: 5,
+        minscore6: 6,
+        maxscore: 999,
+        total: 999,
+        programtitle: getCookie("timestamp"),
+      };
+      emailjs.send('dndstatgenerator@gmail.com', 'stattemplate', templateParams).then(function(response) {
+        console.log('SUCCESS!', response.status, response.text);
+        document.getElementById("emailsent").hidden = false;
+      }, function(error) {
+        document.getElementById("emailsent").textContent = "Email Failed To Send";
+        document.getElementById("emailsent").hidden = false;
+        console.log('FAILED...', error);
+      });
+    }
+
     $(window).bind('beforeunload', function() {
       console.log("test");
       return 'Are you sure you want to leave?';
